@@ -1,5 +1,6 @@
 # coding=utf-8
-from utils import readFile, writeDic
+from utils import readFile, writeSeg, binary_search
+import time
 
 def FMM(dicpath, textpath):
     # read text from file
@@ -17,25 +18,43 @@ def FMM(dicpath, textpath):
         dic.append(tmp[0]) # only needs word
         if(len(tmp[0]) > maxWordLen):
             maxWordLen = len(tmp[0])
+    # count time
+    startTime = time.time()
     # Do FMM
     textSize = len(textlines)
+    seg = []
+    # count = 0
     for i in range(textSize):
-        text = textlines[i]
+        text = textlines[i].strip()
         wordList = []
-        # True_statements if expression else False_statements
-        len = maxWordLen if len(text) > maxWordLen else len(text) 
-        tryWord = text[:len]
-        while tryWord not in dic:
-            
+        while len(text) > 0:
+            # True_statements if expression else False_statements
+            lenTryWord = maxWordLen if len(text) > maxWordLen else len(text) 
+            tryWord = text[:lenTryWord]
+            while not binary_search(dic, tryWord):
+                if len(tryWord) == 1:
+                    break
+                tryWord = tryWord[:len(tryWord) - 1]
+            # match successfully
 
-    return 
+            wordList.append(tryWord)
+            # start match the remain part
+            text = text[len(tryWord):]
+        seg.append(wordList)
+        # count += 1
+        # print(count)
+    endTime = time.time()
+    print((endTime - startTime) * 1000)
+    return seg 
 
 
 
 dicpath = "dic.txt"
 textpath = "199801_sent.txt"
+segpath = "seg_FMM.txt"
 def main():
-    FMM(dicpath, textpath)
+    seg = FMM(dicpath, textpath)
+    writeSeg(segpath, seg)
     return
 
 if __name__ == "__main__":

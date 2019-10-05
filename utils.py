@@ -12,6 +12,18 @@ def writeDic(path, dic):
     f.close()
     return 
 
+def writeSeg(path, lines):
+    with open(path, 'w') as f:
+        for line in lines:
+            newline = ""
+            for word in line:
+                newline += word + "/" + " "
+            f.write(newline)
+            #print(newline)
+            f.write("\n")
+    f.close
+    return
+
 def binary_search(slis, key):
     left = 0
     right = len(slis) - 1
@@ -19,8 +31,8 @@ def binary_search(slis, key):
         mid = int((left + right) / 2)
         if(key < slis[mid]):
             right = mid - 1
-        elif(ley > slis[mid]):
+        elif(key > slis[mid]):
             left = mid + 1
         else:
-            return mid
+            return True
     return False
