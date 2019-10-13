@@ -1,9 +1,11 @@
+# coding=utf-8
 def readFile(path):
     with open(path, 'r') as f:
         lines = f.readlines()
     f.close()
     return lines
 
+# use to write dic in part 3.1
 def writeDic(path, dic):
     with open(path, 'w') as f:
         for word in dic:
@@ -12,6 +14,7 @@ def writeDic(path, dic):
     f.close()
     return 
 
+# use to write seg result in part 3.2
 def writeSeg(path, lines):
     with open(path, 'w') as f:
         for line in lines:
@@ -21,8 +24,17 @@ def writeSeg(path, lines):
             f.write(newline)
             #print(newline)
             f.write("\n")
-    f.close
+    f.close()
     return
+
+# use to write analysis result in part 3.3
+def writeList(path, lines):
+    with open(path, 'w') as f:
+        for line in lines:
+            f.write(line)
+            f.write("\n")
+    f.close()
+    return 
 
 def binary_search(slis, key):
     left = 0
