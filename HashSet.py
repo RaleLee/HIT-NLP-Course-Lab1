@@ -1,23 +1,10 @@
+# version 1.0 - linear probing
+
 class HashSet: 
-    def __str__(self):
-        lst = []
-        for x in self:
-            lst.append(x)
- 
-        lst = sorted(lst)
- 
-        return str(lst)
- 
     def __len__(self):
         return self.numItems
     
-    def __iter__(self):
-        for i in range(len(self.items)):
-            if self.items[i] != None and type(self.items[i]) != HashSet.__Placeholder:
-                yield self.items[i]
-    
- 
-    #初始化
+    # init
     def __init__(self,contents=[]):
         self.items = [None] * 10
         self.numItems = 0
@@ -65,7 +52,8 @@ class HashSet:
  
         def __eq__(self,other):
             return False
- 
+
+    # use find method can call this method to find a item in set
     def __contains__(self, item):
         idx = hash(item) % len(self.items)
         while self.items[idx] != None:
@@ -75,3 +63,107 @@ class HashSet:
             idx = (idx + 1) % len(self.items)
  
         return False
+
+# version 2.0 - zipper method with list
+class HashSetZ:
+    class __Node:
+        load = False
+        words = []
+
+        # init of Node
+        def __init__(self, word):
+            self.words.append(word)
+            if(word != ""):
+                self.load = True
+
+        def empty(self):
+            return self.load
+
+        # add word to Node
+        def add(self, word):
+            self.words.append(word)
+        
+        # find a word in zipper list
+        def __contains__(self, word):
+            if(self.words.count(word) > 0):
+                return True
+            return False
+
+    Hashset = []
+    length = 0
+    # hash_function = my_hash
+    __Place = __Node("")
+    # ch_encoder = ch_gbk_encode
+
+    def __init__(self, length):
+        self.length = length
+        for i in range(self.length):
+            self.Hashset.append(self.__Place)
+
+    # add word into hashset
+    def add(self, word):
+        val = hash(word) % self.length
+        newNode = self.__Node(word)
+        if self.Hashset[val].empty:
+            self.Hashset[val] = newNode
+        else:
+            self.Hashset[val].add(word)
+        return True
+
+    # use find method can call this method to find a item in set
+    def __contains__(self, word):
+        val = hash(word) % self.length
+        if self.Hashset[val].empty():
+            return False
+        else:
+            return word in self.Hashset[val]
+
+class linkListNode:
+    word = None
+    next = None
+    
+    # init
+    def __init__(self, word):
+        self.word = word
+
+    # add
+    def add(self, next):
+        self.next = next 
+
+
+# version 3.0 - zipper method with linkedList
+class HashSetL:
+    Hashset = []
+    length = 0
+    __Place = linkListNode("")
+
+    def __init__(self, length):
+        self.length = length
+        for i in range(self.length):
+            self.Hashset.append(self.__Place)
+
+    def add(self, word):
+        val = hash(word) % self.length
+        newNode = linkListNode(word)
+        if self.Hashset[val] == self.__Place:
+            self.Hashset[val] = newNode
+        else:
+            curNode = self.Hashset[val]
+            while curNode.next is not None:
+                if curNode.word == word:
+                    return False
+                curNode = curNode.next
+            curNode.add(newNode)
+            return True
+
+    def __contains__(self, word):
+        val = hash(word) % self.length
+        if self.Hashset[val] == self.__Place:
+            return False
+        else:
+            curNode = self.Hashset[val]
+            while curNode.word != word:
+                curNode = curNode.next
+                if(curNode == None):
+                    return False
+            return True

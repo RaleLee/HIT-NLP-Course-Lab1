@@ -61,7 +61,7 @@ def analysis(standard_path, my_seg_path):
         #     my_pos.append((pos, pos + len(word)))
         #     pos += len(word)
         
-        before = word_cor
+        # before = word_cor
         for word in my_words:
             if word in standard_words:
                 word_cor += 1
