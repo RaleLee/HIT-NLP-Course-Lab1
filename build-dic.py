@@ -11,6 +11,15 @@ def buildDic(lines):
             if(word == " "):
                 continue
             fullword = tuple(word.strip().split("/"))
+            if(len(fullword[0]) == 0 or len(fullword[1]) == 0):
+                continue
+            copy = fullword
+            if fullword[0][0] == "[" and len(fullword[0]) > 1:
+                fullword = (fullword[0][1:], copy[1])
+            copy = fullword
+            if "]" in fullword[1]:
+                tmp_list = fullword[1].split("]")
+                fullword = ( copy[0],tmp_list[0]) 
             if fullword in words:
                 dic[fullword] += 1
             else:
