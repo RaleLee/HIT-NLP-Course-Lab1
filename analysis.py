@@ -48,27 +48,9 @@ def analysis(standard_path, my_seg_path):
         my_words = my_seg[i].split("/ ")
         if my_words[len(my_words) - 1] == "":
             my_words = my_words[:-1]
-        # print(standard_words)
-        # print(my_words)
-        # standard_pos = []
-        # pos = 1
-        # for word in standard_words:
-        #     standard_pos.append((pos, pos + len(word)))
-        #     pos += len(word)
-        # my_pos = []
-        # pos = 1
-        # for word in my_words:
-        #     my_pos.append((pos, pos + len(word)))
-        #     pos += len(word)
-        
-        # before = word_cor
         for word in my_words:
             if word in standard_words:
                 word_cor += 1
-
-        # if word_cor - before != len(my_words):
-        #     print(standard_words)
-        #     print(my_words)
         word_true += len(standard_words)
         word_pre += len(my_words)
 
