@@ -168,11 +168,11 @@ def LM_two_gram_seg(textpath, dic, bi_dic):
     print((endTime - startTime) * 1000)
     return seg
 
-
-dicpath = "dic.txt"
-bi_dicpath = "bi_dic.txt"
-textpath = "199801_sent.txt"
-segpath = "seg_withLM2.txt"
+dicpath = "outputs/dic.txt"
+bi_dicpath = "outputs/bi_dic.txt"
+textpath = "dataset/199801_sent.txt"
+segpath = "outputs/seg_FMM_withDAT.txt"
+segpath = "outputs/seg_withLM2.txt"
 
 def main():
     dic, _ = build_prefix_dict(dicpath)

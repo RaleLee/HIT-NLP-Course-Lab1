@@ -50,9 +50,9 @@ def FMM(dicpath, textpath):
 
 
 
-dicpath = "dic.txt"
-textpath = "199801_sent.txt"
-segpath = "seg_FMM.txt"
+dicpath = "outputs/dic.txt"
+textpath = "dataset/199801_sent.txt"
+segpath = "outputs/seg_FMM.txt"
 def main():
     seg = FMM(dicpath, textpath)
     writeSeg(segpath, seg)

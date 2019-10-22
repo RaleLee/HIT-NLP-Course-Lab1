@@ -34,8 +34,8 @@ def main(segpath, dicpath):
     writeDic(dicpath, dic)
 
 
-segpath = '199801_seg.txt'
-dicpath = "dic.txt"
+segpath = "dataset/199801_seg.txt"
+dicpath = "outputs/dic.txt"
 
 if __name__ == "__main__":
     main(segpath, dicpath)

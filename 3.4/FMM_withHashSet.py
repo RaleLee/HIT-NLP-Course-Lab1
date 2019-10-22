@@ -1,6 +1,6 @@
 # coding=utf-8
 from utils import readFile, writeSeg
-import DoubleArrayTrie
+import HashSet
 import time
 
 def FMM(dicpath, textpath):
@@ -10,16 +10,13 @@ def FMM(dicpath, textpath):
     # read dic from file
     oriDic = readFile(dicpath)
     # new a dic for running code and the origin dic won't be destroy
-    dic = DoubleArrayTrie.DoubleArrayTrie()
+    dic = HashSet.HashSet()
     # count the maxlen of a word
     maxWordLen = 0
     dicSize = len(oriDic)
     for i in range(dicSize):
         tmp = oriDic[i].split(" ") # the dic format: word POS times
-        word = []
-        for ch in tmp[0]:
-            word.append(ch)
-        dic.add(word) # only needs word
+        dic.add(tmp[0]) # only needs word
         if(len(tmp[0]) > maxWordLen):
             maxWordLen = len(tmp[0])
     # count time
@@ -35,15 +32,12 @@ def FMM(dicpath, textpath):
             # True_statements if expression else False_statements
             lenTryWord = maxWordLen if len(text) > maxWordLen else len(text) 
             tryWord = text[:lenTryWord]
-            word = []
-            for ch in tryWord:
-                word.append(ch)
-            while word not in dic:
+            while tryWord not in dic:
                 if len(tryWord) == 1:
                     break
                 tryWord = tryWord[:len(tryWord) - 1]
-                word = word[:len(word) - 1]
             # match successfully
+
             wordList.append(tryWord)
             # start match the remain part
             text = text[len(tryWord):]
@@ -56,9 +50,9 @@ def FMM(dicpath, textpath):
 
 
 
-dicpath = "dic.txt"
-textpath = "199801_sent.txt"
-segpath = "seg_FMM_withDAT.txt"
+dicpath = "outputs/dic.txt"
+textpath = "dataset/199801_sent.txt"
+segpath = "outputs/seg_FMM_withSet.txt"
 def main():
     seg = FMM(dicpath, textpath)
     writeSeg(segpath, seg)

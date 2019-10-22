@@ -105,9 +105,9 @@ def LM_one_gram_seg(textpath, dic, sum):
     return seg
 
 
-dicpath = "dic.txt"
-textpath = "199801_sent.txt"
-segpath = "seg_withLM1.txt"
+dicpath = "outputs/dic.txt"
+textpath = "dataset/199801_sent.txt"
+segpath = "outputs/seg_withLM1.txt"
 def main():
     dic, sum = build_prefix_dict(dicpath)
     seg = LM_one_gram_seg(textpath, dic, sum)

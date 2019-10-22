@@ -64,10 +64,10 @@ def analysis(standard_path, my_seg_path):
     return ret
 
 
-standard_path = "199801_seg.txt"
-seg_FMM = "seg_FMM.txt"
-seg_BMM = "seg_BMM.txt"
-output_file = "score.txt"   # including precision, recall, F1
+standard_path = "dataset/199801_seg.txt"
+seg_FMM = "outputs/seg_FMM.txt"
+seg_BMM = "outputs/seg_BMM.txt"
+output_file = "outputs/score.txt"   # including precision, recall, F1
 
 def main():
     output_FMM = analysis(standard_path, seg_FMM)
