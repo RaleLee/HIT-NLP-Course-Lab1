@@ -11,11 +11,15 @@ def build_prefix_dict(dicpath):
     
     lines = readFile(dicpath)
     for line in lines:
-        if(len(line)) == 0:
+        if len(line) == 0:
             continue
         tmp = line.strip().split(" ")   # the dic format: word POS times
         word, freq = tmp[0], int(tmp[2])
-        prefix_dict[word] = freq
+        if word not in prefix_dict:
+            prefix_dict[word] = freq
+        else:
+            prefix_dict += freq
+        
         sum += freq
 
         # for word in dict, get the prefix of it
