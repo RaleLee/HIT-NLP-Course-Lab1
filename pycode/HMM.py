@@ -161,25 +161,35 @@ def seg_HMM(model, test_set):
     seg = []
     lines = readFile(test_set)
     for line in lines:
-        seg.append("/".join(model.seg(line)))
+        line = line.strip()
+        if len(line) > 0:
+            tmp_seg = "/ ".join(model.seg(line))
+            tmp_seg += "/ "
+            seg.append(tmp_seg)
     return seg
 
 # need to cut
 train_set = "dataset/199801_seg.txt"
 test_set = "dataset/199801_sent.txt"
 save_model_path = "outputs/save.pkl"
+fine_model_path = "dataset/hmm_model.pkl"
 seg_path = "outputs/seg_HMM.txt"
+fine_seg_path = "outputs/seg_fine_HMM.txt"
 
 def main():
     # count time
     startTime = time.time()
     model = HMM()
-    model.train(train_set, save_model_path)
-    model.load(save_model_path)
-    seg = seg_HMM(model, test_set)
+    # model.train(train_set, save_model_path)
+    # model.load(save_model_path)
+    model.load(fine_model_path)
+    #seg = seg_HMM(model, test_set)
     endTime = time.time()
     print((endTime - startTime) * 1000)
-    writeList(seg_path, seg)
+    # writeList(seg_path, seg)
+    #writeList(fine_seg_path, seg)
+    text = "新华社报道，近日出现重大问题。"
+    print('/'.join(model.seg(text)))
 
 if __name__ == "__main__":
     main()

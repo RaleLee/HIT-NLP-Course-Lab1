@@ -18,14 +18,14 @@ def build_prefix_dict(dicpath):
         if word not in prefix_dict:
             prefix_dict[word] = freq
         else:
-            prefix_dict += freq
+            prefix_dict[word] += freq
         
         sum += freq
 
         # for word in dict, get the prefix of it
         for ch in range(len(word)):
             prefix = word[:ch + 1]
-            if(prefix) not in prefix_dict:
+            if prefix not in prefix_dict:
                 prefix_dict[prefix] = 0
     return prefix_dict, sum
 

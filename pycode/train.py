@@ -65,12 +65,12 @@ def analysis(standard_path, my_seg_path):
 
 
 standard_path = "dataset/199801_seg.txt"
-seg_LM = "outputs/seg_HMM.txt"
-output_file = "outputs/score_HMM.txt"   # including precision, recall, F1
+seg_LM = "outputs/seg_withLM1OOV.txt"
+output_file = "outputs/score_withLM1OOV.txt"   # including precision, recall, F1
 
 def main():
     output_LM = analysis(standard_path, seg_LM)
-    output_LM.insert(0, "HMM: ")
+    output_LM.insert(0, "LM1+OOV: ")
     writeList(output_file, output_LM)
     return
 
