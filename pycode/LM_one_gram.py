@@ -51,25 +51,25 @@ def build_DAG(sen, dic):
 # calculate the route
 def cal_route(sen, DAG, route, dic, sum):
     sen_len = len(sen)
-    route[sen_len] = (-0, 0)
+    route[sen_len] = (0, 0)
     log_sum = log(sum)
     for idx in range(sen_len - 1, -1, -1):
-        max_tu = (-100000000,0)
-        for x in DAG[idx]:
-            if(sen[idx : x + 1] in dic):
-                freq = dic[sen[idx : x + 1]] or 1
-                log_freq = log(freq)
-                try:
-                    com = log_freq - log_sum + route[x+1][0]
-                except TypeError:
-                    print(type(log_freq))
-                    print(type(log_sum))
-                    print(route[x+1][0])
+        # max_tu = (-100000000,0)
+        # for x in DAG[idx]:
+        #     if(sen[idx : x + 1] in dic):
+        #         freq = dic[sen[idx : x + 1]] or 1
+        #         log_freq = log(freq)
+        #         try:
+        #             com = log_freq - log_sum + route[x+1][0]
+        #         except TypeError:
+        #             print(type(log_freq))
+        #             print(type(log_sum))
+        #             print(route[x+1][0])
 
-                if (com, x) > max_tu:
-                    max_tu = (com, x) 
-        route[idx] = max_tu
-        # route[idx] = max((log(dic[sen[idx : x + 1]] or 1) - log_sum + route[x+1][0], x) for x in DAG[idx])
+        #         if (com, x) > max_tu:
+        #             max_tu = (com, x) 
+        # route[idx] = max_tu
+        route[idx] = max((log(dic.get(sen[idx: x+1]) or 1) - log_sum + route[x + 1][0], x) for x in DAG[idx])
     return route
 
 # for line to do seg
@@ -105,9 +105,9 @@ def LM_one_gram_seg(textpath, dic, sum):
     return seg
 
 
-dicpath = "outputs/dic.txt"
+dicpath = "outputs/sp_dic.txt"
 textpath = "dataset/199801_sent.txt"
-segpath = "outputs/seg_withLM1.txt"
+segpath = "outputs/seg_spwithLM1.txt"
 def main():
     dic, sum = build_prefix_dict(dicpath)
     seg = LM_one_gram_seg(textpath, dic, sum)
