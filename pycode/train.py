@@ -45,7 +45,7 @@ def analysis(standard_path, my_seg_path):
                 fullword = fullword[1:]
             tmp_words.append(fullword)
         standard_words = tmp_words
-        my_words = my_seg[i].split("/ ")
+        my_words = my_seg[i].split("/ ")[1:]
         if my_words[len(my_words) - 1] == "":
             my_words = my_words[:-1]
         for word in my_words:
@@ -61,16 +61,76 @@ def analysis(standard_path, my_seg_path):
     ret.append("Precision: " + str(Precision*100) + "%")
     ret.append("Recall: " + str(Recall*100) + "%")
     ret.append("F1: " + str(F1*100) + "%")
+    ret.append("correct: " + str(word_cor))
+    ret.append("All: " + str(word_true))
+    ret.append("Predict: " + str(word_pre))
     return ret
+    
+def calculate():
+    TP = 0 #正确的被判断正确
+    P = 0 #自己分词总数
+    T = 0 #seg标准分词总数
 
+    lengthGivenList = len(givenList)##  i  大
+    lengthFMMList = len(FMMList)##  j 小
+    i = 0
+    j = 0
+    while(j < lengthFMMList and i<lengthGivenList):
+
+        givenWordList = givenList[i]  # m 小
+        FMMWordList = FMMList[j]  # n  大
+
+        P = P+len(FMMWordList)
+        T = T+len(givenWordList)
+
+        m = 0
+        n = 0
+        while n < len(FMMWordList) and m<len(givenWordList):
+            FMMWord = FMMWordList[n]
+            givenWord = givenWordList[m]
+            if(FMMWord == givenWord):
+                m = m+1
+                n = n+1
+                TP = TP+1
+                continue
+            #不相等，则在分词集中不断取词，直到与given相等
+            k = 0
+            l = 0
+            while FMMWord != givenWord:
+                if(len(FMMWord) <= len(givenWord)):
+                    k = k+1
+                    FMMWord = FMMWord + FMMWordList[n+k]
+
+                else:
+                    l = l+1
+                    givenWord = givenWord+givenWordList[m+l]
+
+            n = n + k + 1
+            m = m + l + 1
+            #TP = TP+1
+
+        i = i+1
+        j = j+1
+
+        # 解决空行问题。。
+        while j < lengthFMMList and FMMList[j] == []:
+            j = j + 1
+        while i < lengthGivenList and givenList[i] == []:
+            i = i + 1
+
+    result = []
+    result.append(TP)
+    result.append(P)
+    result.append(T)
+    return result
 
 standard_path = "dataset/199801_seg.txt"
-seg_LM = "outputs/seg_spwithLM1.txt"
-output_file = "outputs/score_spwithLM1.txt"   # including precision, recall, F1
+seg_LM = "outputs/seg_FMM_test.txt"
+output_file = "outputs/score_FMM_test2.txt"   # including precision, recall, F1
 
 def main():
     output_LM = analysis(standard_path, seg_LM)
-    output_LM.insert(0, "LM1+sp: ")
+    output_LM.insert(0, "FMM_test: ")
     writeList(output_file, output_LM)
     return
 
