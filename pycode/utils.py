@@ -36,6 +36,14 @@ def writeList(path, lines):
     f.close()
     return 
 
+# use to write training & test dic in part 3.1
+def writeTrainList(path, lines):
+    with open(path, 'w') as f:
+        for line in lines:
+            f.write(line)
+    f.close()
+    return
+
 def binary_search(slis, key):
     left = 0
     right = len(slis) - 1

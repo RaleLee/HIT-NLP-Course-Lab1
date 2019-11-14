@@ -80,8 +80,8 @@ if __name__ == "__main__":
             for part in line:
                 word = part.split('/')[0]  # 获得词
                 word = re.sub('\[', '', word)  # 去除词中[
-                if (match_date(word)):  # 去除日期
-                    continue
+                # if (match_date(word)):  # 去除日期
+                #     continue
                 givenWordList.append(word)
             givenList.append(givenWordList)
         rGiven.close()
@@ -94,8 +94,8 @@ if __name__ == "__main__":
             line = sentence.split()
             for part in line:
                 word = part.split('/')[0]  # 获得词
-                if (match_date(word)):  # 去除日期
-                    continue
+                # if (match_date(word)):  # 去除日期
+                #     continue
                 FMMWordList.append(word)
             FMMList.append(FMMWordList)
         fr.close()
@@ -165,7 +165,7 @@ if __name__ == "__main__":
     # print("recall:\t"+str(recall4))
     # print("F:\t"+str(F4))
 
-    with open('outputs/score_FMM_test.txt', 'w') as w:
+    with open('outputs/score_FMM_test3.txt', 'w') as w:
         w.write("FMM:\n")
         w.write("准确率（precision）:\t"+ str(precision1)+"\n")
         w.write("召回率（recall）:\t" + str(recall1) + "\n")

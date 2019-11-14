@@ -1,5 +1,5 @@
 # coding=utf-8
-from utils import readFile, writeSeg, binary_search
+from utils import readFile, writeSeg
 import time
 
 def FMM(dicpath, textpath):
