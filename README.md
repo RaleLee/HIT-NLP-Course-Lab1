@@ -31,4 +31,12 @@
 
 一元文法结合隐马尔可夫模型未登录词LM_onegram+OOV.py 
 
-二元文法结合隐马尔可夫模型未登录词LM_twogram+OOV.py
+性能冲刺 sprint.py
+
+如果要对别的文件进行分词，请修改以下路径(Line 259开始)：
+textpath -- 待分词的文件，GBK编码
+text_utf8_path -- 将待分词的文件转成UTF-8编码
+segpath -- 存放最终的分词结果，GBK编码
+程序运行需要的时间很长，分标准文件199801_sent需要10分钟
+还请耐心等待，thanks!
+

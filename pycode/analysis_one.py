@@ -59,8 +59,8 @@ def analysis(FMMList):
     return result
 
 standard_path = "dataset/199801_seg&pos.txt"
-seg_FMM = "outputs/seg_withLM1OOV.txt"
-outputs = "outputs/score_LM1OOV.txt"
+seg_FMM = "outputs/seg_sprint.txt"
+outputs = "outputs/score_sprint.txt"
 
 def main():
     

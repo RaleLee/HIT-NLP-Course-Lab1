@@ -50,7 +50,7 @@ def FMM(dicpath, textpath):
         # count += 1
         # print(count)
     endTime = time.time()
-    print((endTime - startTime) * 1000)
+    print((endTime - startTime))
     return seg 
 
 
