@@ -12,8 +12,19 @@ class HashSet:
         for item in contents:
             self.add(item)    
  
-    def __add(self, item,items):
-        idx = hash(item) % len(items)
+    def __hash(self, word):
+        word_hash = 0
+        for ch in word:
+            byte_ch = ch.encode("gbk")
+            if(len(byte_ch) < 2):
+                ch_hash = (byte_ch[0] - 0xB0) * 94
+            else:
+                ch_hash = (byte_ch[0] - 0xB0) * 94 + (byte_ch[1] - 0xA1)
+            word_hash = word_hash * 114 + ch_hash
+        return int((word_hash & 0x7FFFFFFF))
+
+    def __add(self, item, items):
+        idx = self.__hash(item) % len(items)
         loc = -1
  
         while items[idx] != None:
@@ -55,7 +66,7 @@ class HashSet:
 
     # use find method can call this method to find a item in set
     def __contains__(self, item):
-        idx = hash(item) % len(self.items)
+        idx = self.__hash(item) % len(self.items)
         while self.items[idx] != None:
             if self.items[idx] == item:
                 return True
@@ -64,7 +75,7 @@ class HashSet:
  
         return False
 
-# version 2.0 - zipper method with list
+# version 2.0 - zipper method with list, wrong version!!!
 class HashSetZ:
     class __Node:
         load = False
@@ -100,9 +111,20 @@ class HashSetZ:
         for i in range(self.length):
             self.Hashset.append(self.__Place)
 
+    def __hash(self, word):
+        word_hash = 0
+        for ch in word:
+            byte_ch = ch.encode("gbk")
+            if(len(byte_ch) < 2):
+                ch_hash = (byte_ch[0] - 0xB0) * 94
+            else:
+                ch_hash = (byte_ch[0] - 0xB0) * 94 + (byte_ch[1] - 0xA1)
+            word_hash = word_hash * 114 + ch_hash
+        return int((word_hash & 0x7FFFFFFF))
+
     # add word into hashset
     def add(self, word):
-        val = hash(word) % self.length
+        val = self.__hash(word) % self.length
         newNode = self.__Node(word)
         if self.Hashset[val].empty:
             self.Hashset[val] = newNode
@@ -112,7 +134,7 @@ class HashSetZ:
 
     # use find method can call this method to find a item in set
     def __contains__(self, word):
-        val = hash(word) % self.length
+        val = self.__hash(word) % self.length
         if self.Hashset[val].empty():
             return False
         else:
@@ -142,6 +164,17 @@ class HashSetL:
         for i in range(self.length):
             self.Hashset.append(self.__Place)
 
+    def __hash(self, word):
+        word_hash = 0
+        for ch in word:
+            byte_ch = ch.encode("gbk")
+            if(len(byte_ch) < 2):
+                ch_hash = (byte_ch[0] - 0xB0) * 94
+            else:
+                ch_hash = (byte_ch[0] - 0xB0) * 94 + (byte_ch[1] - 0xA1)
+            word_hash = word_hash * 114 + ch_hash
+        return int((word_hash & 0x7FFFFFFF))
+    
     def add(self, word):
         val = hash(word) % self.length
         newNode = linkListNode(word)

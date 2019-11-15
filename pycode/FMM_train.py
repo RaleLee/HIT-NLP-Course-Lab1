@@ -56,12 +56,51 @@ def FMM(dicpath, textpath):
 
 
 dicpath = "train/trainDic.txt"
+sp_dicpath = "train/sptrainDic.txt"
+num_dicpath = "train/numtrainDic.txt"
+nr_dicpath = "train/nrtrianDic.txt"
+en_dicpath = "train/entrainDic.txt"
+ns_dicpath = "train/nstrainDic.txt"
+pt_dicpath = "train/pttrainDic.txt"
+nsnr_dicpath = "train/nsnrtrainDic.txt"
+nsrum_dicpath = "train/nsrumtrainDic.txt"
 textpath = "train/testsent.txt"
 segpath = "train/seg_all.txt"
+sp_segpath = "train/seg_sp.txt"
+num_segpath = "train/seg_num.txt"
+nr_segpath = "train/seg_nr.txt"
+en_segpath = "train/seg_en.txt"
+ns_segpath = "train/seg_ns.txt"
+pt_segpath = "train/seg_pt.txt"
+nsnr_segpath = "train/seg_nsnr.txt"
+nsrum_segpath = "train/seg_nsrum.txt"
+# test_path = "dataset/199801_sent.txt"
+# test_dic = "outputs/dic.txt"
+# test_segpath = "outputs/seg_FMM.txt"
 
 def main():
-    seg = FMM(dicpath, textpath)
-    writeSeg(segpath, seg)
+    seg_all = FMM(dicpath, textpath)
+    seg_sp = FMM(sp_dicpath, textpath)
+    seg_num = FMM(num_dicpath, textpath)
+    seg_nr = FMM(nr_dicpath, textpath)
+    seg_ns = FMM(ns_dicpath, textpath)
+    seg_en = FMM(en_dicpath, textpath)
+    seg_pt = FMM(pt_dicpath, textpath)
+    seg_nsnr = FMM(nsnr_dicpath, textpath)
+    seg_nsrum = FMM(nsrum_dicpath, textpath)
+    
+    writeSeg(segpath, seg_all)
+    writeSeg(sp_segpath, seg_sp)
+    writeSeg(num_segpath, seg_num)
+    writeSeg(nr_segpath, seg_nr)
+    writeSeg(ns_segpath, seg_ns)
+    writeSeg(en_segpath, seg_en)
+    writeSeg(pt_segpath, seg_pt)
+    writeSeg(nsnr_segpath, seg_nsnr)
+    writeSeg(nsrum_segpath, seg_nsrum)
+
+    # seg = FMM(test_dic, test_path)
+    # writeSeg(test_segpath, seg)
     return
 
 if __name__ == "__main__":

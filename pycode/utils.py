@@ -47,7 +47,7 @@ def writeTrainList(path, lines):
 def binary_search(slis, key):
     left = 0
     right = len(slis) - 1
-    while left < right:
+    while left <= right:
         mid = int((left + right) / 2)
         if(key < slis[mid]):
             right = mid - 1

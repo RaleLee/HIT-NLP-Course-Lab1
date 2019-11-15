@@ -1,6 +1,7 @@
 import re
 
-def analysis(givenList, FMMList):
+givenList = []
+def analysis(FMMList):
     TP = 0 #正确的被判断正确
     P = 0 #自己分词总数
     T = 0 #seg标准分词总数
@@ -64,7 +65,7 @@ seg_BMM = "outputs/seg_BMM.txt"
 outputs = "outputs/score.txt"
 
 def main():
-    givenList = []
+    
     givenWordList = []
     with open(standard_path, 'r') as f:
         for sentence in f.readlines():
@@ -73,11 +74,9 @@ def main():
             for part in line:
                 word = part.split('/')[0]  # 获得词
                 word = re.sub('\[', '', word)  # 去除词中[
-                # if (match_date(word)):  # 去除日期
-                #     continue
                 givenWordList.append(word)
             givenList.append(givenWordList)
-        f.close()
+    f.close()
     
     #FMM
     FMMList = []
@@ -86,14 +85,12 @@ def main():
             FMMWordList = []
             line = sentence.split()
             for part in line:
-                word = part.split('/')[0]  # 获得词
-                # if (match_date(word)):  # 去除日期
-                #     continue
+                word = part.split('/')[0]  # 获得词 
                 FMMWordList.append(word)
             FMMList.append(FMMWordList)
-        f.close()
+    f.close()
 
-    result1 = analysis(givenList, FMMList)
+    result1 = analysis(FMMList)
     print(result1)
     precision1 = result1[0] / result1[1]
     recall1 = result1[0] / result1[2]
@@ -108,9 +105,10 @@ def main():
             for part in line:
                 word = part.split('/')[0]  # 获得词
                 BMMWordList.append(word)
-            BMMList.append(FMMWordList)
-        f.close()
-    result2 = analysis(givenList, BMMList)
+            BMMList.append(BMMWordList)
+    f.close()
+   
+    result2 = analysis(BMMList)
     print(result2)
     precision2 = result2[0] / result2[1]
     recall2 = result2[0] /  result2[2]

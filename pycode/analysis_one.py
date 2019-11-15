@@ -1,6 +1,6 @@
 import re
-
-def analysis(givenList, FMMList):
+givenList = []
+def analysis(FMMList):
     TP = 0 #正确的被判断正确
     P = 0 #自己分词总数
     T = 0 #seg标准分词总数
@@ -58,12 +58,12 @@ def analysis(givenList, FMMList):
     result.append(T)
     return result
 
-standard_path = "train/testset.txt"
-seg_FMM = "train/seg_all.txt"
-outputs = "train/score_all.txt"
+standard_path = "dataset/199801_seg&pos.txt"
+seg_FMM = "outputs/seg_FMM.txt"
+outputs = "outputs/score_FMM.txt"
 
 def main():
-    givenList = []
+    
     givenWordList = []
     with open(standard_path, 'r') as f:
         for sentence in f.readlines():
@@ -72,8 +72,6 @@ def main():
             for part in line:
                 word = part.split('/')[0]  # 获得词
                 word = re.sub('\[', '', word)  # 去除词中[
-                # if (match_date(word)):  # 去除日期
-                #     continue
                 givenWordList.append(word)
             givenList.append(givenWordList)
         f.close()
@@ -86,13 +84,11 @@ def main():
             line = sentence.split()
             for part in line:
                 word = part.split('/')[0]  # 获得词
-                # if (match_date(word)):  # 去除日期
-                #     continue
                 FMMWordList.append(word)
             FMMList.append(FMMWordList)
         f.close()
 
-    result1 = analysis(givenList, FMMList)
+    result1 = analysis(FMMList)
     precision1 = result1[0] / result1[1]
     recall1 = result1[0] / result1[2]
     F1 = (2*precision1*recall1)/(precision1+recall1)
