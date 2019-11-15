@@ -4,8 +4,6 @@ from time import time
 from math import log
 
 
-def add_begin_edd(sen):
-    return
 # build prefix dict
 def build_prefix_dict(dicpath):
     prefix_dict = {}    # dic with frequence
@@ -74,13 +72,13 @@ def cal_score(word1, word2, dict, bidict):
     if word1 in dict:
         pword1 = dict[word1]
     if pword1 == 0:
-        pword1 = 1  # Laplace smoothing 
+        pword1 = 0.5  # Laplace smoothing 
     pword2 = 0
     if word2 in bidict:
         if word1 in bidict[word2]:
             pword2 = bidict[word2][word1]
     if pword2 == 0:
-        pword2 = 0.0000001
+        pword2 = 0.000001 # smoothing
     plog = log(pword2) - log(pword1)
     return plog
 
@@ -159,19 +157,25 @@ def LM_two_gram_seg(textpath, dic, bi_dic):
     startTime = time()
     for i in range(textSize):
         sen = textlines[i].strip()
+        if len(sen) == 0:
+            sen_seg = []
+            seg.append(sen_seg)
+            continue
+        linebegin = sen[:19]
+        sen = sen[19:]
         sen = "<BOS>" + sen + "<EOS>"
         route = {}
         DAG = build_DAG(sen, dic)
         sen_seg = cal_route_two(sen, DAG, route, dic, bi_dic)
+        sen_seg.insert(0, linebegin)
         seg.append(sen_seg)
     endTime = time()
-    print((endTime - startTime) * 1000)
+    print((endTime - startTime))
     return seg
 
-dicpath = "outputs/dic.txt"
-bi_dicpath = "outputs/bi_dic.txt"
+dicpath = "outputs/LMdic.txt"
+bi_dicpath = "outputs/bidic.txt"
 textpath = "dataset/199801_sent.txt"
-segpath = "outputs/seg_FMM_withDAT.txt"
 segpath = "outputs/seg_withLM2.txt"
 
 def main():

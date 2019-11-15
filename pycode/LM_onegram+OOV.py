@@ -78,7 +78,7 @@ def cal_route(sen, DAG, route, dic, sum):
 def seg_sen(sen, DAG, dic, sum):
     route = {}
     route = cal_route(sen, DAG, route, dic, sum)
-    print(datetime.datetime.now())
+    # print(datetime.datetime.now())
     x = 0
     buf = ""
     length = len(sen)
@@ -127,17 +127,20 @@ def LM_one_gram_OOV_seg(textpath, dic, sum):
     for i in range(textSize):
         sen = textlines[i].strip()
         if len(sen) == 0:
+            seg.append("")
             continue
+        linebegin = sen[:19]
+        sen = sen[19:]
         DAG = build_DAG(sen, dic)
-        sen_seg = "/ ".join(seg_sen(sen, DAG, dic, sum)) + "/ "
+        sen_seg = linebegin  + "/ " + "/ ".join(seg_sen(sen, DAG, dic, sum)) + "/ "
         seg.append(sen_seg)
-        print(datetime.datetime.now())
+        # print(datetime.datetime.now())
     endTime = time()
-    print((endTime - startTime) * 1000)
+    print((endTime - startTime))
     return seg
 
 
-dicpath = "outputs/sp_dic.txt"
+dicpath = "outputs/dic.txt"
 textpath = "dataset/199801_sent.txt"
 save_model_path = "outputs/save.pkl"
 segpath = "outputs/seg_withLM1OOV.txt"

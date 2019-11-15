@@ -4,7 +4,7 @@
 
 ### 3.1
 
-生成词典使用的是build_dic.py。 想要重新生成词典可以运行该文件。生成的词典文件存放在outputs文件夹中,文件名dic.txt。
+生成词典使用的是build_dic.py。 想要重新生成词典可以运行该文件。生成的词典文件存放在outputs文件夹中,文件名dic.txt。运行该文件同时将会生成3.5中使用的onegram词典和bigram词典
 
 3.1中还对词典组成进行了实验，如要复现实验过程，则可以首先运行cut_dic.py将词典切分成训练集和验证集。然后使用build_train_dic.py从训练集中生成不同的词典，生成的词典在train文件夹中，文件名类似xxxtrainDic.txt。接下来使用FMM_train.py对所有的情况进行测试，测试结果在train文件夹中，文件名类似seg_xxx.txt。然后使用analysis_one.py来得到F1，正确率，召回率等结果。这里运行的时候需要进到analysis_one.py中手动修改seg文件的path和存放结果的score文件的path。最终的测试结果存放在train文件夹中，文件名类似score_xxx.txt
 
@@ -23,3 +23,12 @@
 
 ### 3.5
 
+一元文法 LM_one_gram.py
+
+二元文法 LM_two_gram.py 
+
+隐马尔可夫模型 HMM.py 
+
+一元文法结合隐马尔可夫模型未登录词LM_onegram+OOV.py 
+
+二元文法结合隐马尔可夫模型未登录词LM_twogram+OOV.py

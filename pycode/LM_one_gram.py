@@ -81,33 +81,38 @@ def LM_one_gram_seg(textpath, dic, sum):
     startTime = time()
     for i in range(textSize):
         sen = textlines[i].strip()
-        route = {}
-        DAG = build_DAG(sen, dic)
-        # print(DAG)
-        route =  cal_route(sen, DAG, route, dic, sum)
-        sen_len = len(sen)
-        sen_seg = []
-        j = 0
-        # print(datetime.datetime.now())
-        # print(route)
-        while j < sen_len:
-            cur = route[j][1]
-            sen_seg.append(sen[j:cur+1])
-            j = cur + 1
-            # print(sen_len)
-            # print(sen[j:cur+1] + "fuck")
+        if not len(sen) == 0:
+            linebegin = sen[:19]
+            sen = sen[19:]
+            sen_seg = []
+            sen_seg.append(linebegin)
+            route = {}
+            DAG = build_DAG(sen, dic)
+            # print(DAG)
+            route =  cal_route(sen, DAG, route, dic, sum)
+            sen_len = len(sen)       
+            j = 0
             # print(datetime.datetime.now())
-            # print(j)
+            # print(route)
+            while j < sen_len:
+                cur = route[j][1]
+                sen_seg.append(sen[j:cur+1])
+                j = cur + 1
+                # print(sen_len)
+                # print(sen[j:cur+1] + "fuck")
+                # print(datetime.datetime.now())
+                # print(j)
+        else:
+            sen_seg = []
         seg.append(sen_seg)
-        print(datetime.datetime.now())
     endTime = time()
-    print((endTime - startTime) * 1000)
+    print((endTime - startTime))
     return seg
 
 
-dicpath = "outputs/sp_dic.txt"
+dicpath = "outputs/LMdic.txt"
 textpath = "dataset/199801_sent.txt"
-segpath = "outputs/seg_spwithLM1.txt"
+segpath = "outputs/seg_withLM1.txt"
 def main():
     dic, sum = build_prefix_dict(dicpath)
     seg = LM_one_gram_seg(textpath, dic, sum)
