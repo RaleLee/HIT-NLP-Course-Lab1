@@ -140,7 +140,7 @@ def LM_one_gram_OOV_seg(textpath, dic, sum):
     return seg
 
 
-dicpath = "outputs/dic.txt"
+dicpath = "outputs/LMdic.txt"
 textpath = "dataset/199801_sent.txt"
 save_model_path = "outputs/save.pkl"
 segpath = "outputs/seg_withLM1OOV.txt"
