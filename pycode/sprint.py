@@ -248,9 +248,10 @@ standard_utf8_path = "outputs/199801_seg&pos_utf8.txt"
 save_path = "outputs/BMESdata.txt"
 
 '''
+上面的路径请不要修改！
 请修改以下路径
-textpath -- 待分词的文件，GBK编码
-text_utf8_path -- 将待分词的文件转成UTF-8编码
+textpath -- 待分词的文件路径，GBK编码
+text_utf8_path -- 将待分词的文件转成UTF-8编码存放路径
 segpath -- 存放最终的分词结果， GBK编码
 程序运行需要的时间很长，分标准文件199801_sent需要10分钟
 还请耐心等待，thanks!
