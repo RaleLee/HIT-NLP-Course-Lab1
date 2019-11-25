@@ -1,6 +1,15 @@
 # HIT-NLP-Course-Lab1
 
+## 方法说明
+
+
+机械分词部分采用最大正向匹配和最大反向匹配分词实现。统计分词部分采用N-gram语法，实现了uni-gram和bi-gram。同时还实现了基于BMES标注的HMM进行未登录词识别，实现参考了jieba。性能部分使用的是采用基于二阶隐马尔可夫模型改进的Character Based Generative Model，详见报告以及
+论文Wang, Kun, Chengqing Zong, and Keh-Yih Su. "Which is More Suitable for Chinese Word Segmentation, the Generative Model or the Discriminative One?." PACLIC. 2009.该模型结合了N-gram文法和HMM的方法，能够实现高召回的词典词和高召回的未登录词。实现参考SnowNLP
+
 ## 文件说明
+
+
+pycode之中都是代码，train中是训练字典中生成的文件，dataset是199801人民日报已标注和未标注的数据集（这是已经公开的数据集，可以使用），outputs是各种输出文件的地址
 
 ### 3.1
 
